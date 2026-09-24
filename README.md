@@ -33,27 +33,58 @@ python -m unittest test_analyzer.py
 
 El análisis sintáctico descendente construye derivaciones por la izquierda partiendo del símbolo inicial hacia la cadena de entrada. Para lograr tiempo lineal $\mathcal{O}(n)$ con un token de anticipación (*lookahead*), se emplean los siguientes conjuntos (según las diapositivas de clase):
 
-1. **PRIMEROS($\alpha$):**
-   $$\text{PRIMEROS}(\alpha) = \{ a \in \Sigma \mid \alpha \Rightarrow^* a\beta \} \cup \{ \varepsilon \mid \alpha \Rightarrow^* \varepsilon \}$$
-   Para una secuencia $X_1 X_2 \dots X_k$:
-   $$\text{PRIMEROS}(X_1 \dots X_k) = \bigcup_{i=1}^k (\text{PRIMEROS}(X_i) \setminus \{\varepsilon\}) \quad \text{hasta el primer } X_i \text{ no anulable} \quad [\cup \{\varepsilon\} \text{ si todos son anulables}]$$
+### 2.1. Conjunto PRIMEROS
 
-2. **SIGUIENTES($A$):**
-   $$\text{SIGUIENTES}(A) = \{ a \in (\Sigma \cup \{\text{\$}\}) \mid S \Rightarrow^* \mu A a \nu \}$$
-   - Inicializar $\text{\$} \in \text{SIGUIENTES}(S)$.
-   - Para toda producción $A \to \alpha B \beta$: agregar $(\text{PRIMEROS}(\beta) \setminus \{\varepsilon\})$ a $\text{SIGUIENTES}(B)$.
+Para una forma sentencial $\alpha$:
+
+$$
+\text{PRIMEROS}(\alpha) = \{ a \in \Sigma \mid \alpha \Rightarrow^* a\beta \} \cup \{ \varepsilon \mid \alpha \Rightarrow^* \varepsilon \}
+$$
+
+Para una secuencia de símbolos $X_1 X_2 \dots X_k$:
+
+$$
+\text{PRIMEROS}(X_1 \dots X_k) = \bigcup_{i=1}^k (\text{PRIMEROS}(X_i) \setminus \{\varepsilon\}) \quad \text{hasta el primer } X_i \text{ no anulable}
+$$
+
+*(Si todos los símbolos $X_1 \dots X_k$ son anulables, se incluye $\varepsilon$ en el conjunto).*
+
+### 2.2. Conjunto SIGUIENTES
+
+Contiene los terminales que pueden aparecer inmediatamente a la derecha del no terminal $A$ en alguna forma sentencial derivada desde el símbolo inicial $S$:
+
+$$
+\text{SIGUIENTES}(A) = \{\, a \in (\Sigma \cup \{\$\}) \mid S \Rightarrow^* \mu A a \nu \,\}
+$$
+
+Donde `$` representa el marcador de fin de entrada.
+
+**Reglas de cálculo (Algoritmo de punto fijo):**
+1. Inicializar `$` $\in \text{SIGUIENTES}(S)$.
+2. Para toda producción $A \to \alpha B \beta$:
+   - Agregar $(\text{PRIMEROS}(\beta) \setminus \{\varepsilon\})$ a $\text{SIGUIENTES}(B)$.
    - Si $\beta \Rightarrow^* \varepsilon$ o $\beta$ es vacía: agregar $\text{SIGUIENTES}(A)$ a $\text{SIGUIENTES}(B)$.
-   - **Regla:** $\varepsilon$ nunca pertenece a un conjunto SIGUIENTES.
+3. Repetir hasta alcanzar el punto fijo (ningún conjunto cambie).
+4. **Regla clave:** $\varepsilon$ nunca pertenece a un conjunto SIGUIENTES.
 
-3. **PREDICCIÓN($A \to \alpha$):**
-   $$\text{PRED}(A \to \alpha) = \begin{cases} 
-   \text{PRIMEROS}(\alpha), & \text{si } \varepsilon \notin \text{PRIMEROS}(\alpha) \\ 
-   (\text{PRIMEROS}(\alpha) \setminus \{\varepsilon\}) \cup \text{SIGUIENTES}(A), & \text{si } \varepsilon \in \text{PRIMEROS}(\alpha) 
-   \end{cases}$$
+### 2.3. Conjunto de PREDICCIÓN
 
-4. **Criterio LL(1):**
-   Para cada no terminal $A$, todas sus producciones alternativas deben tener conjuntos de predicción mutuamente disjuntos:
-   $$\text{PRED}(A \to \alpha) \cap \text{PRED}(A \to \beta) = \emptyset \quad (\alpha \ne \beta)$$
+Para cada regla de producción $A \to \alpha$, define con qué tokens de anticipación es válido elegirla:
+
+$$
+\text{PRED}(A \to \alpha) = \begin{cases} 
+\text{PRIMEROS}(\alpha), & \text{si } \varepsilon \notin \text{PRIMEROS}(\alpha) \\ 
+(\text{PRIMEROS}(\alpha) \setminus \{\varepsilon\}) \cup \text{SIGUIENTES}(A), & \text{si } \varepsilon \in \text{PRIMEROS}(\alpha) 
+\end{cases}
+$$
+
+### 2.4. Criterio LL(1)
+
+Para cada no terminal $A$, todas sus producciones alternativas deben tener conjuntos de predicción mutuamente disjuntos:
+
+$$
+\text{PRED}(A \to \alpha) \cap \text{PRED}(A \to \beta) = \emptyset \quad (\alpha \ne \beta)
+$$
 
 ---
 
