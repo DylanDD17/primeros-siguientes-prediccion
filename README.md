@@ -1,8 +1,8 @@
 ﻿# Algoritmos de Primeros, Siguientes y Predicción
 
 **Asignatura:** Lenguajes de Programación y Transducción  
-**Autor:** Dylan David Torres — [GitHub: @DylanDD17](https://github.com/DylanDD17)  
-**Entorno:** Python 3.8+ (Biblioteca estándar)
+**Integrantes:** Dylan Torres · Juan Gomez · Javier Rosero
+
 
 ---
 
@@ -26,7 +26,6 @@ El sistema carga gramáticas desde archivos de texto plano (`.txt`), ejecuta los
   * `salida_ejercicio1.png`: Captura de terminal del Ejercicio 1.
   * `salida_ejercicio2.png`: Captura de terminal del Ejercicio 2.
 * **`README.md`**: Informe técnico y documentación completa del proyecto.
-* **`.gitignore`**: Configuración de exclusiones de Git.
 
 ---
 
@@ -49,7 +48,7 @@ primeros-siguientes-prediccion/
 ## 4. Requisitos
 
 * **Python 3.8** o superior instalado.
-* No requiere librerías externas ni gestores de paquetes adicionales (diseñado exclusivamente con la biblioteca estándar de Python).
+* No requiere librerías externas ni gestores de paquetes adicionales.
 
 ---
 
