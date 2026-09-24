@@ -4,9 +4,6 @@ Implementación de los Algoritmos de:
 1. PRIMEROS
 2. SIGUIENTES
 3. PREDICCIÓN
-
-Curso: Lenguajes de Programación y Transducción
-Autor: Dylan David Torres (GitHub: @DylanDD17)
 """
 
 import sys
