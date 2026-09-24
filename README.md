@@ -235,5 +235,5 @@ A continuación se presentan las capturas de ejecución del programa `analizador
 ## 9. Conclusion
 
 1. **Correspondencia Teórico-Computacional Plena:**  
-   La validación comparativa demostró una coincidencia del 100% entre las derivaciones analíticas manuales y la salida del programa en Python. Esto confirma que el algoritmo de punto fijo modela con precisión la propagación transitiva y resuelve correctamente secuencias con múltiples símbolos anulables consecutivos.
+   La validación comparativa demostró una coincidencia del 100% entre las derivaciones analíticas manuales y la salida del programa en Python. Esto confirma que el algoritmo de punto fijo modela con precisión la propagación transitiva.
 
