@@ -232,15 +232,8 @@ A continuación se presentan las capturas de ejecución del programa `analizador
 
 ---
 
-## 9. Conclusiones
+## 9. Conclusion
 
 1. **Correspondencia Teórico-Computacional Plena:**  
    La validación comparativa demostró una coincidencia del 100% entre las derivaciones analíticas manuales y la salida del programa en Python. Esto confirma que el algoritmo de punto fijo modela con precisión la propagación transitiva y resuelve correctamente secuencias con múltiples símbolos anulables consecutivos.
 
-2. **Criterio de Determinismo LL(1):**  
-   El cálculo de los conjuntos de predicción evidencia que la condición necesaria y suficiente para que una gramática sea analizable de forma determinista descendente con un token de anticipación es que todas las reglas alternativas de cada no terminal posean conjuntos directores disjuntos. Cuando esta propiedad no se cumple, el analizador experimenta ambigüedad local en la selección de producciones.
-
-3. **Diagnóstico Práctico de las Gramáticas Evaluadas:**  
-   * La **Gramática 1** es completamente inviable para análisis LL(1) directo debido a la presencia de recursión por la izquierda (en $S$ y $A$) y colisiones múltiples en sus predicciones.
-   * La **Gramática 2**, a pesar de estar libre de recursión izquierda y contar con alternativas disjuntas en $A$ y $C$, fracasa en cumplir el criterio LL(1) debido a los solapamientos originados por las producciones anulables de $B$ y $D$.
-   * En un compilador real, ambas gramáticas requerirían una fase previa de transformación sintáctica (eliminación sistemática de recursión izquierda y factorización por la izquierda) para poder ser procesadas por un motor de análisis predictivo.
